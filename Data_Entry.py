@@ -164,10 +164,12 @@ if submitted:
 
         data_row = [industry, cell_type, culture_type,
                     scaffold, media, culture_sys, process]
+        data_row_names = ['Industry', 'Cell type', 'Culture type',
+                          'Scaffold', 'Media', 'Culture system', 'Process']
         empties = []
         for j in range(len(data_row)):
             if len(data_row[j]) == 0:
-                st.warning("One of the key info is missing")
+                st.warning(f"{data_row_names[j]} info is missing")
                 empties.append(0)
 
         if len(empties) == len(data_row):
