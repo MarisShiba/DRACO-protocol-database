@@ -65,8 +65,10 @@ def display_paper_info(df, index):
 
     # st.markdown("#### Year")
     # st.write(str(df.at[index,'Publish date']))
-    #
-    paper_types = ast.literal_eval(df.at[index, 'Type of paper'])
+    try:
+        paper_types = ast.literal_eval(df.at[index, 'Type of paper'])
+    except:
+        paper_types = []
     # st.markdown("#### Type of paper")
     # st.write(", ".join(paper_types))
 
