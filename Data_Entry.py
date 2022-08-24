@@ -108,6 +108,7 @@ def clear_form():
     st.session_state["media"] = ""
     st.session_state["culture_sys"] = ""
     st.session_state["process"] = ""
+    st.session_state["tested"] = False
     st.session_state["notes"] = ""
     
 gsheet_connector = connect_to_gsheet()
@@ -140,19 +141,19 @@ clear = st.button(label='Clear texts', on_click=clear_form)
 form = st.form(key="annotation")
 
 with form:
-    industry = st.text_input("Industry:")
+    industry = st.text_input("Industry:", key="industry")
     cols = st.columns((1, 1))
-    cell_type = cols[0].text_input("Type of cells:")
-    culture_type = cols[1].text_input("Type of culture:")
+    cell_type = cols[0].text_input("Type of cells:", key='cell_tpye')
+    culture_type = cols[1].text_input("Type of culture:", key='culture_type')
 
     cols = st.columns((1, 1))
-    scaffold = cols[0].text_input("Scaffold:")
-    media = cols[1].text_input("Media:")
+    scaffold = cols[0].text_input("Scaffold:", key='scaffold')
+    media = cols[1].text_input("Media:", key='media')
 
-    culture_sys = st.text_input("Culturing system:")
-    process = st.text_area("Process:")
-    notes = st.text_area("Notes:")
-    tested = st.checkbox('Tested by SLD')
+    culture_sys = st.text_input("Culturing system:", key='culture_sys')
+    process = st.text_area("Process:", key='process')
+    notes = st.text_area("Notes:", key='notes')
+    tested = st.checkbox('Tested by SLD', key='tested')
 
     codeword = st.text_area("Code word:")
     submitted = st.form_submit_button(label="Submit")
