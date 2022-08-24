@@ -13,6 +13,7 @@ st.title("DRACO Cell Culture Database")
 
 SCOPE = "https://www.googleapis.com/auth/spreadsheets"
 SPREADSHEET_ID = "1l5brTfIYWnQk0tm2PRaf7EKlX3GGSSIiqzs1RkWFdhY"
+code_names = ['Carla', 'Pranav', 'Aayush', 'Janus']
 
 # @st.experimental_singleton()
 def connect_to_gsheet():
@@ -54,7 +55,7 @@ def get_data(gsheet_connector, SHEET_NAME) -> pd.DataFrame:
 
     df = pd.DataFrame(values["values"])
     df.columns = df.iloc[0]
-    df = df.loc[~df.Recorder.isin(['Carla', 'Pranav'])]
+    df = df.loc[~df.Recorder.isin(code_names)]
     df = df[1:]
     return df
 
@@ -176,23 +177,14 @@ if submitted:
             st.error("No submission can be made with all fields empty.")
         else:
             data_row += [tested, notes]
-            if codeword == 'Carla':
+            if codeword in code_names:
                 add_row_to_gsheet(
                     gsheet_connector,
                     'Test_streamlit',
-                    [api_data+[""]+data_row+['Carla']],
+                    [api_data+[""]+data_row+[codeword]],
                 )
 
-                update_gsheet(gsheet_connector, 'API_results', f"T{i+1}:U{i+1}", [['Carla', '']])
-                st.success("Thanks! Your data was recorded.")
-            elif codeword == 'Pranav':
-                add_row_to_gsheet(
-                    gsheet_connector,
-                    'Test_streamlit',
-                    [api_data+[""]+data_row+['Pranav']],
-                )
-
-                update_gsheet(gsheet_connector, 'API_results', f"T{i+1}:U{i+1}", [['Pranav', '']])
+                update_gsheet(gsheet_connector, 'API_results', f"T{i+1}:U{i+1}", [[codeword, '']])
                 st.success("Thanks! Your data was recorded.")
             else:
                 st.error("Wrong code name.")
