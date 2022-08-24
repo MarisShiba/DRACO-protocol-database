@@ -68,7 +68,7 @@ def display_paper_info(df, index):
     try:
         paper_types = ast.literal_eval(df.at[index, 'Type of paper'])
     except:
-        paper_types = []
+        paper_types = ["Not available"]
     # st.markdown("#### Type of paper")
     # st.write(", ".join(paper_types))
 
