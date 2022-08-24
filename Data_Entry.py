@@ -55,8 +55,11 @@ def get_data(gsheet_connector, SHEET_NAME) -> pd.DataFrame:
 
     df = pd.DataFrame(values["values"])
     df.columns = df.iloc[0]
-    df = df.loc[~df.Recorder.isin(code_names)]
-    df = df[1:]
+    try:
+        df = df.loc[~df.Recorder.isin(code_names)]
+        df = df[1:]
+    except:
+        df = df[1:]
     return df
 
 def display_paper_info(df, index):
