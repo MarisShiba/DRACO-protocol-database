@@ -100,6 +100,16 @@ def add_row_to_gsheet(gsheet_connector, SHEET_NAME, row) -> None:
         valueInputOption="USER_ENTERED",
     ).execute()
 
+def clear_form():
+    st.session_state["industry"] = ""
+    st.session_state["cell_tpye"] = ""
+    st.session_state["culture_type"] = ""
+    st.session_state["scaffold"] = ""
+    st.session_state["media"] = ""
+    st.session_state["culture_sys"] = ""
+    st.session_state["process"] = ""
+    st.session_state["notes"] = ""
+    
 gsheet_connector = connect_to_gsheet()
 df = get_data(gsheet_connector, 'API_results')
 cols = st.columns((1, 1, 1))
@@ -124,6 +134,8 @@ if show_paper:
         st.error("The given index is not valid!")
 else:
     stop_submit = True
+
+clear = st.button(label='Clear texts', on_click=clear_form)
 
 form = st.form(key="annotation")
 
